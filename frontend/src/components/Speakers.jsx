@@ -64,9 +64,21 @@ const Speakers = () => {
     return (
         <section id="speakers" ref={containerRef} className="py-24 px-6 bg-[#050505]">
             <div className="max-w-7xl mx-auto text-center">
-                <h2 className="text-4xl md:text-5xl font-orbitron font-bold mb-16 text-white">
-                    Keynote <span className="text-[var(--color-neon-cyan)]">Speakers</span>
-                </h2>
+                <h2 className="text-4xl md:text-5xl font-orbitron font-black mb-16 text-center text-[#F6EEDD]">
+    Keynote{" "}
+    <span className="
+        bg-gradient-to-r
+        from-[#7A1C1C]
+        via-[#FFD56A]
+        to-[#7A1C1C]
+        bg-clip-text
+        text-transparent
+        drop-shadow-[0_0_25px_rgba(255,213,106,0.6)]
+    ">
+        Speakers
+    </span>
+</h2>
+
 
                 <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
                     {speakersData.map((s, i) => (
@@ -82,11 +94,45 @@ const Speakers = () => {
 
                             {/* Overlay Content */}
                             <div className="absolute inset-0 bg-gradient-to-t from-black via-black/50 to-transparent flex flex-col justify-end p-6 translate-y-4 group-hover:translate-y-0 transition-transform duration-300">
-                                <h3 className="text-xl font-bold font-orbitron text-white">{s.name}</h3>
-                                <p className="text-[var(--color-neon-cyan)] text-sm font-inter font-medium mb-2">{s.role}</p>
-                                <div className="h-0 group-hover:h-auto overflow-hidden transition-all">
-                                    <p className="text-gray-400 text-xs mt-2 font-inter">Speaking on: {s.topic}</p>
-                                </div>
+                                <h3
+  className="
+    text-xl font-black font-orbitron
+    bg-gradient-to-r
+    from-[#FFD56A]
+    via-[#F6EEDD]
+    to-[#FFD56A]
+    bg-clip-text
+    text-transparent
+    drop-shadow-[0_0_12px_rgba(255,213,106,0.6)]
+  "
+>
+  {s.name}
+</h3>
+
+<p
+  className="
+    text-sm font-inter font-semibold mb-2
+    text-[#7A1C1C]
+    tracking-wide
+    drop-shadow-[0_0_8px_rgba(122,28,28,0.6)]
+  "
+>
+  {s.role}
+</p>
+
+<div className="h-0 group-hover:h-auto overflow-hidden transition-all">
+  <p
+    className="
+      text-xs mt-2 font-inter italic
+      text-[#F6EEDD]/70
+      group-hover:text-[#FFD56A]
+      transition-colors duration-300
+    "
+  >
+    Speaking on: {s.topic}
+  </p>
+</div>
+
                             </div>
                         </div>
                     ))}
