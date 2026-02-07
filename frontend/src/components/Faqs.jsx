@@ -130,8 +130,15 @@ const Faqs = () => {
         <div className="mb-24 text-center">
           <h1 className="text-3xl md:text-5xl font-bold tracking-tight text-[#F6EEDD]">
             You Asked,{" "}
-            <span className="bg-gradient-to-r from-[#B8962E] via-[#D4AF37] to-[#B8962E] bg-clip-text text-transparent">
-              We Answered.
+            <span className="
+            bg-gradient-to-r
+            from-[#6F5520]
+            via-[#FFD56A]
+            via-[#C9A23A]
+            to-[#6F5520]
+            bg-clip-text text-transparent
+            ">
+            We Answered.
             </span>
           </h1>
         </div>
