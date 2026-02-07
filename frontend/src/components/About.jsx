@@ -1,85 +1,115 @@
 import React, { useEffect, useRef } from 'react';
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
+import abtvideo from './../assets/aboutvideo/abtvideo.mp4';
 
 gsap.registerPlugin(ScrollTrigger);
 
 const About = () => {
     const containerRef = useRef(null);
-    const textRef = useRef(null);
-    const cardRef = useRef(null);
+    const videoRef = useRef(null);
+    const contentRef = useRef(null);
 
     useEffect(() => {
-        const el = containerRef.current;
-
-        gsap.fromTo(textRef.current.children,
-            { opacity: 0, x: -50 },
-            {
-                opacity: 1,
-                x: 0,
-                duration: 1,
-                stagger: 0.2,
+        const ctx = gsap.context(() => {
+            // Video parallax effect
+            gsap.to(videoRef.current, {
+                y: "15%", // Reduced for smoother feel
+                ease: "none",
                 scrollTrigger: {
-                    trigger: el,
+                    trigger: containerRef.current,
+                    start: "top bottom",
+                    end: "bottom top",
+                    scrub: true
+                }
+            });
+
+            // Smooth Text Reveal
+            gsap.from(".reveal-text", {
+                y: 60,
+                opacity: 0,
+                duration: 1.2,
+                stagger: 0.3,
+                ease: "power4.out",
+                scrollTrigger: {
+                    trigger: containerRef.current,
                     start: "top 70%",
                 }
-            }
-        );
+            });
+        }, containerRef);
 
-        gsap.fromTo(cardRef.current,
-            { opacity: 0, scale: 0.8 },
-            {
-                opacity: 1,
-                scale: 1,
-                duration: 1,
-                ease: "power2.out",
-                scrollTrigger: {
-                    trigger: el,
-                    start: "top 70%",
-                }
-            }
-        );
+        return () => ctx.revert();
     }, []);
 
     return (
-        <section id="about" ref={containerRef} className="min-h-screen w-full py-20 px-6 flex items-center relative overflow-hidden">
-            {/* Background Grid */}
-            <div className="absolute inset-0 bg-[linear-gradient(rgba(255,255,255,0.03)_1px,transparent_1px),linear-gradient(90deg,rgba(255,255,255,0.03)_1px,transparent_1px)] bg-[size:50px_50px] [mask-image:radial-gradient(ellipse_at_center,black_50%,transparent_100%)] pointer-events-none"></div>
+        <section 
+            id="about" 
+            ref={containerRef} 
+            className="relative min-h-screen w-full flex items-center justify-center overflow-hidden bg-black py-20 px-6"
+        >
+            {/* VIDEO LAYER - Increased Opacity */}
+            <div className="absolute inset-0 z-0">
+                <video 
+                    ref={videoRef}
+                    autoPlay 
+                    muted 
+                    loop 
+                    playsInline
+                    /* CHANGED: Opacity to 70% and removed scale unless needed */
+                    className="w-full h-[115%] object-cover opacity-70" 
+                    src={abtvideo}
+                />
+                
+                {/* REFINED OVERLAYS - This is where the magic happens */}
+                {/* 1. Gradient to fade top and bottom into the black background */}
+                <div className="absolute inset-0 bg-gradient-to-b from-black via-transparent to-black z-10"></div>
+                
+                {/* 2. Subtle Dark Tint - Only enough to make white text readable */}
+                <div className="absolute inset-0 bg-black/30 backdrop-blur-[1px] z-10"></div>
+            </div>
 
-            <div className="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-16 items-center w-full z-10">
-                <div ref={textRef}>
-                    <h4 className="text-[var(--color-neon-green)] font-inter font-bold tracking-widest uppercase mb-4">Who We Are</h4>
-                    <h2 className="text-4xl md:text-6xl font-orbitron font-bold mb-8 text-white leading-tight">
-                        Fostering <br />
-                        <span className="text-transparent bg-clip-text bg-gradient-to-r from-[var(--color-neon-cyan)] to-[var(--color-neon-purple)]">Global Innovation</span>
+            {/* CONTENT - Set to z-20 to stay above all masks */}
+            <div className="max-w-6xl mx-auto z-20 grid grid-cols-1 lg:grid-cols-12 gap-12 items-center relative">
+                
+                {/* Left Content */}
+                <div className="lg:col-span-7 space-y-8" ref={contentRef}>
+                    <div className="overflow-hidden">
+                        <span className="reveal-text block text-[#F2AE3F] font-semibold tracking-[0.3em] uppercase text-sm">
+                            The Legacy of Excellence
+                        </span>
+                    </div>
+                    
+                    <h2 className="reveal-text text-5xl md:text-7xl font-serif text-[#F6EEDD] leading-tight">
+                        Defining the <span className="text-[#7A1C1C]">Standard</span> <br /> of Innovation.
                     </h2>
-                    <p className="text-gray-300 font-inter text-lg leading-relaxed mb-6 border-l-2 border-[var(--color-neon-cyan)] pl-6">
-                        Udbhav, organized by the Institution’s Innovation Council (IIC) at MNNIT Allahabad in collaboration with IIHMF, is a prominent annual Youth Summit and entrepreneurial event focused on fostering innovation, startup culture, and creativity among students.
-                    </p>
-                    <p className="text-gray-400 font-inter text-base">
-                        We bring together the brightest minds, industry leaders, and tech enthusiasts to collaborate, compete, and create the future.
-                    </p>
+
+                    <div className="reveal-text space-y-6 border-l-2 border-[#7A1C1C] pl-8">
+                        <p className="text-white/90 text-lg md:text-xl leading-relaxed font-light">
+                            Udbhav, hosted by the <b className="text-[#F2AE3F]">Institution’s Innovation Council (IIC)</b> at MNNIT Allahabad, is more than an event—it’s a high-stakes arena for the next generation of entrepreneurs.
+                        </p>
+                        <p className="text-white/60 text-base leading-relaxed">
+                            In collaboration with IIHMF, we foster a vibrant ecosystem where cognitive ability meets startup culture, preparing students for the global stage.
+                        </p>
+                    </div>
                 </div>
 
-                <div ref={cardRef} className="relative group perspective-1000">
-                    <div className="relative w-full aspect-square md:aspect-[4/3] glass rounded-2xl overflow-hidden border border-white/10 p-8 transform transition-transform duration-500 group-hover:rotate-y-6 group-hover:rotate-x-6" style={{ backgroundImage: "url('https://iihmf.in/static/media/is1.39daf8667b687d2edccf.jpg')", backgroundSize: "cover", backgroundPosition: "center" }}>
-                        {/* <img className="w-full h-full object-cover backdrop-blur-[10px] background-ima" src="https://iihmf.in/static/media/is1.39daf8667b687d2edccf.jpg" alt="IIHMF" /> */}
-                        <div className="absolute inset-0 bg-gradient-to-br from-black/80 via-[var(--color-neon-cyan)]/20 to-[var(--color-neon-purple)]/20 z-0"></div>
-                        <div className="relative z-10 h-full flex flex-col justify-between">
-                            <div className="text-6xl text-white/20 font-orbitron font-black"></div>
-
-                            <div className="space-y-4">
-                                <div className="h-2 w-20 bg-[var(--color-neon-cyan)] rounded-full"></div>
-                                <h3 className="text-2xl font-bold font-inter text-black opacity-80">Innovation First</h3>
-                                <p className="text-sm text-gray-800">At Udbhav, we believe that every great idea deserves a platform. Our events are designed to challenge the status quo.</p>
-                            </div>
+                {/* Right Cards/Features */}
+                <div className="lg:col-span-5 grid gap-4 reveal-text">
+                    {[
+                        { title: "Vibrant Ecosystem", desc: "Creating a local hub for revolutionary ideas.", color: "#7A1C1C" },
+                        { title: "Strategic Mentorship", desc: "Network with industry leaders and investors.", color: "#2F2F2C" },
+                        { title: "Global Ranking", desc: "Aligning with ARIIA frameworks for excellence.", color: "#9E3A3A" }
+                    ].map((item, i) => (
+                        <div key={i} className="group p-6 bg-[#2F2F2C]/60 backdrop-blur-lg border border-white/10 hover:border-[#F2AE3F]/50 transition-all duration-500 rounded-sm">
+                            <div className="h-1 w-12 mb-4 bg-[#F2AE3F]" style={{ backgroundColor: item.color }}></div>
+                            <h3 className="text-[#F6EEDD] text-xl font-bold mb-2 uppercase tracking-wide">{item.title}</h3>
+                            <p className="text-white/50 text-sm group-hover:text-white/80 transition-colors duration-300">{item.desc}</p>
                         </div>
-                    </div>
-                    {/* glow */}
-                    <div className="absolute -inset-4 bg-[var(--color-neon-cyan)] rounded-full blur-[60px] opacity-20 -z-10"></div>
+                    ))}
                 </div>
             </div>
         </section>
     );
 };
+
 export default About;
