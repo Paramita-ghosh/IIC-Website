@@ -55,12 +55,12 @@ const About = () => {
                     muted 
                     loop 
                     playsInline
-                    /* CHANGED: Opacity to 70% and removed scale unless needed */
+                    
                     className="w-full h-[115%] object-cover opacity-70" 
                     src={abtvideo}
                 />
                 
-                {/* REFINED OVERLAYS - This is where the magic happens */}
+               
                 {/* 1. Gradient to fade top and bottom into the black background */}
                 <div className="absolute inset-0 bg-gradient-to-b from-black via-transparent to-black z-10"></div>
                 
