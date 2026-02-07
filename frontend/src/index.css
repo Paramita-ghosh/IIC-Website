@@ -1,0 +1,60 @@
+@import "tailwindcss";
+
+@theme {
+  --font-orbitron: 'Orbitron', sans-serif;
+  --font-inter: 'Inter', sans-serif;
+
+  --color-neon-cyan: #00f3ff;
+  --color-neon-purple: #bc13fe;
+  --color-neon-green: #0aff00;
+  --color-deep-bg: #050510;
+  --color-glass: rgba(255, 255, 255, 0.05);
+}
+
+@layer base {
+  body {
+    background-color: var(--color-deep-bg);
+    color: white;
+    font-family: var(--font-inter);
+    cursor: none;
+    overflow-x: hidden;
+  }
+
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
+    font-family: var(--font-orbitron);
+  }
+}
+
+::-webkit-scrollbar {
+  width: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: #0a0a0a;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #333;
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--color-neon-cyan);
+}
+
+.glass {
+  background: var(--color-glass);
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.text-gradient {
+  background: linear-gradient(to right, var(--color-neon-cyan), var(--color-neon-purple));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
