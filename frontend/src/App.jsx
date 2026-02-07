@@ -12,11 +12,13 @@ import OverlapSection from './components/OverlapSection';
 import Events from './components/Events';
 import Schedule from './components/Schedule';
 import Speakers from './components/Speakers';
+import Faqs from './components/Faqs';
 import Footer from './components/Footer';
 import CustomCursor from './components/CustomCursor';
 
 // Pages
 import LoginSuccess from './components/LoginSuccess'; // 2. Import your Success Page
+
 
 function App() {
   useEffect(() => {
@@ -56,6 +58,7 @@ function App() {
                 <Events />
                 <Schedule />
                 <Speakers />
+                <Faqs />
               </main>
               <Footer />
             </>
